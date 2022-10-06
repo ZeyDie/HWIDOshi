@@ -2,6 +2,7 @@ package ru.zeydie.hwid.accessories;
 
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
+import oshi.hardware.ComputerSystem;
 import ru.zeydie.hwid.HWIDOshi;
 import ru.zeydie.hwid.accessories.motherboard.BaseboardOshi;
 import ru.zeydie.hwid.accessories.motherboard.FirmwareOshi;
@@ -9,13 +10,16 @@ import ru.zeydie.hwid.accessories.motherboard.FirmwareOshi;
 @Getter
 public final class MotherboardOshi {
     @NotNull
-    private final String manufacture = HWIDOshi.getSystemInfo().getHardware().getComputerSystem().getManufacturer();
+    private final ComputerSystem computerSystem =  HWIDOshi.getSystemInfo().getHardware().getComputerSystem();
+
     @NotNull
-    private final String model = HWIDOshi.getSystemInfo().getHardware().getComputerSystem().getModel();
+    private final String manufacture = this.computerSystem.getManufacturer();
     @NotNull
-    private final String serialNumber = HWIDOshi.getSystemInfo().getHardware().getComputerSystem().getSerialNumber();
+    private final String model = this.computerSystem.getModel();
     @NotNull
-    private final String hardwareUUID = HWIDOshi.getSystemInfo().getHardware().getComputerSystem().getHardwareUUID();
+    private final String serialNumber = this.computerSystem.getSerialNumber();
+    @NotNull
+    private final String hardwareUUID = this.computerSystem.getHardwareUUID();
     @NotNull
     private final FirmwareOshi firmware = new FirmwareOshi();
     @NotNull
