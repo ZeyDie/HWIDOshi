@@ -1,1 +1,1 @@
-# HWIDOshi
+# HWID 'Oshi'

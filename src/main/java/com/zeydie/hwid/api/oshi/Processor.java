@@ -1,20 +1,23 @@
-package ru.zeydie.hwid.accessories;
+package com.zeydie.hwid.api.oshi;
 
-import lombok.Getter;
+import com.zeydie.hwid.api.HWIDApi;
+import com.zeydie.hwid.api.oshi.processor.Logical;
+import com.zeydie.hwid.api.oshi.processor.Physical;
+import lombok.Data;
+import lombok.ToString;
 import org.jetbrains.annotations.NotNull;
 import oshi.hardware.CentralProcessor;
-import ru.zeydie.hwid.HWIDOshi;
-import ru.zeydie.hwid.accessories.processor.Logical;
-import ru.zeydie.hwid.accessories.processor.Physical;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-public final class ProcessorOshi {
+@Data
+public final class Processor {
     @NotNull
-    private final CentralProcessor centralProcessor = HWIDOshi.getSystemInfo().getHardware().getProcessor();
+    @ToString.Exclude
+    private final CentralProcessor centralProcessor = HWIDApi.getSystemInfo().getHardware().getProcessor();
     @NotNull
+    @ToString.Exclude
     private final CentralProcessor.ProcessorIdentifier processorIdentifier = this.centralProcessor.getProcessorIdentifier();
 
     @NotNull
@@ -32,12 +35,4 @@ public final class ProcessorOshi {
     private final List<Physical> physicalProcessors = new ArrayList<>();
     @NotNull
     private final String microarchitecture = this.processorIdentifier.getMicroarchitecture();
-
-    public ProcessorOshi() {
-        for (final CentralProcessor.LogicalProcessor logicalProcessor : this.centralProcessor.getLogicalProcessors())
-            this.logicalProcessors.add(new Logical(logicalProcessor));
-
-        for (final CentralProcessor.PhysicalProcessor physicalProcessor : this.centralProcessor.getPhysicalProcessors())
-            this.physicalProcessors.add(new Physical(physicalProcessor));
-    }
 }

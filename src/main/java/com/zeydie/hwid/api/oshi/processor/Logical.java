@@ -1,9 +1,9 @@
-package ru.zeydie.hwid.accessories.processor;
+package com.zeydie.hwid.api.oshi.processor;
 
-import lombok.Getter;
+import lombok.Data;
 import oshi.hardware.CentralProcessor;
 
-@Getter
+@Data
 public final class Logical {
     private final int processorNumber;
     private final int physicalProcessorNumber;

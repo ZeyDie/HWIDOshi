@@ -1,39 +1,39 @@
-package ru.zeydie.hwid.accessories;
+package com.zeydie.hwid.api.oshi;
 
-import lombok.Getter;
+import com.zeydie.hwid.api.HWIDApi;
+import lombok.Data;
 import org.jetbrains.annotations.NotNull;
 import oshi.hardware.Display;
 import oshi.util.EdidUtil;
-import ru.zeydie.hwid.HWIDOshi;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-public final class MonitorOshi {
+@Data
+public final class Monitor {
     @NotNull
     private final List<String> monitors = new ArrayList<>();
 
-    public MonitorOshi() {
-        final List<Display> displays = HWIDOshi.getSystemInfo().getHardware().getDisplays();
+    public Monitor() {
+        final var displays = HWIDApi.getSystemInfo().getHardware().getDisplays();
 
         if (displays.isEmpty()) {
             this.monitors.add("None detected.");
         } else {
-            int i = 0;
+            var i = 0;
 
             for (final Display display : displays) {
-                final byte[] edid = display.getEdid();
-                final byte[][] desc = EdidUtil.getDescriptors(edid);
+                final var edid = display.getEdid();
+                final var desc = EdidUtil.getDescriptors(edid);
 
-                String name = "Display " + i;
+                var name = "Display " + i;
 
-                for (final byte[] b : desc)
+                for (final var b : desc)
                     if (EdidUtil.getDescriptorType(b) == 252)
                         name = EdidUtil.getDescriptorText(b);
 
-                final int hSize = EdidUtil.getHcm(edid);
-                final int vSize = EdidUtil.getVcm(edid);
+                final var hSize = EdidUtil.getHcm(edid);
+                final var vSize = EdidUtil.getVcm(edid);
 
                 this.monitors.add(String.format("%s: %d x %d cm (%.1f x %.1f in)", name, hSize, vSize, hSize / 2.54D, vSize / 2.54D));
             }

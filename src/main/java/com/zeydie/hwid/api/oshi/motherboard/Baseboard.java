@@ -1,14 +1,15 @@
-package ru.zeydie.hwid.accessories.motherboard;
+package com.zeydie.hwid.api.oshi.motherboard;
 
-import lombok.Getter;
+import com.zeydie.hwid.api.HWIDApi;
+import lombok.Data;
+import lombok.ToString;
 import org.jetbrains.annotations.NotNull;
-import oshi.hardware.Baseboard;
-import ru.zeydie.hwid.HWIDOshi;
 
-@Getter
-public final class BaseboardOshi {
+@Data
+public final class Baseboard {
     @NotNull
-    private final Baseboard baseboard = HWIDOshi.getSystemInfo().getHardware().getComputerSystem().getBaseboard();
+    @ToString.Exclude
+    private final oshi.hardware.Baseboard baseboard = HWIDApi.getSystemInfo().getHardware().getComputerSystem().getBaseboard();
 
     @NotNull
     private final String manufacturer = this.baseboard.getManufacturer();

@@ -1,14 +1,15 @@
-package ru.zeydie.hwid.accessories.motherboard;
+package com.zeydie.hwid.api.oshi.motherboard;
 
-import lombok.Getter;
+import com.zeydie.hwid.api.HWIDApi;
+import lombok.Data;
+import lombok.ToString;
 import org.jetbrains.annotations.NotNull;
-import oshi.hardware.Firmware;
-import ru.zeydie.hwid.HWIDOshi;
 
-@Getter
-public final class FirmwareOshi {
+@Data
+public final class Firmware {
     @NotNull
-    private final Firmware firmware = HWIDOshi.getSystemInfo().getHardware().getComputerSystem().getFirmware();
+    @ToString.Exclude
+    private final oshi.hardware.Firmware firmware = HWIDApi.getSystemInfo().getHardware().getComputerSystem().getFirmware();
 
     @NotNull
     private final String manufacturer = this.firmware.getManufacturer();

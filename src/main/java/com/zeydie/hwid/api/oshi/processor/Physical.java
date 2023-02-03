@@ -1,10 +1,10 @@
-package ru.zeydie.hwid.accessories.processor;
+package com.zeydie.hwid.api.oshi.processor;
 
-import lombok.Getter;
+import lombok.Data;
 import org.jetbrains.annotations.NotNull;
 import oshi.hardware.CentralProcessor;
 
-@Getter
+@Data
 public final class Physical {
     private final int physicalPackageNumber;
     private final int physicalProcessorNumber;

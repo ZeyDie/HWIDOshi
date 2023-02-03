@@ -1,16 +1,19 @@
-package ru.zeydie.hwid.accessories;
+package com.zeydie.hwid.api.oshi;
 
-import lombok.Getter;
+import com.zeydie.hwid.api.HWIDApi;
+import lombok.Data;
+import lombok.ToString;
 import org.jetbrains.annotations.NotNull;
 import oshi.SystemInfo;
 import oshi.software.os.OperatingSystem;
-import ru.zeydie.hwid.HWIDOshi;
 
-@Getter
-public final class SystemOshi {
+@Data
+public final class System {
     @NotNull
-    private final OperatingSystem operatingSystem = HWIDOshi.getSystemInfo().getOperatingSystem();
+    @ToString.Exclude
+    private final OperatingSystem operatingSystem = HWIDApi.getSystemInfo().getOperatingSystem();
     @NotNull
+    @ToString.Exclude
     private final OperatingSystem.OSVersionInfo osVersionInfo = this.operatingSystem.getVersionInfo();
 
     private final int platform = SystemInfo.getCurrentPlatform().ordinal();
